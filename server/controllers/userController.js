@@ -34,3 +34,5 @@ exports.view = (req, res) => {
         })
     })
 }
+
+
