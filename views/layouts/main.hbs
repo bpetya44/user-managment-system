@@ -56,10 +56,13 @@
               </ul>
             </li>
           </ul>
-          <form class="d-flex" role="search">
+
+          {{!-- Search Form --}}
+          <form class="d-flex" role="search" method="POST" action="/">
             <input
               class="form-control me-2"
               type="search"
+              name="search"
               placeholder="Search"
               aria-label="Search"
             />
@@ -68,6 +71,7 @@
               type="submit"
             >Search</button>
           </form>
+
         </div>
       </div>
     </nav>
