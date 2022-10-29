@@ -6,6 +6,7 @@ const userController = require('../controllers/userController')
 router.get('/', userController.view)
 //find user by serch
 router.post('/', userController.find)
-
+//add new user 
+router.get('/add-user', userController.addUser)
 
 module.exports = router
