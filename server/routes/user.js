@@ -7,6 +7,7 @@ router.get('/', userController.view)
 //find user by serch
 router.post('/', userController.find)
 //add new user 
-router.get('/add-user', userController.addUser)
+router.post('/add-user', userController.addUser)
+router.get('/add-user', userController.form)
 
 module.exports = router
