@@ -1,6 +1,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const routes =require('./server/routes/user')
 const mysql = require('mysql')
 
 require('dotenv').config()
@@ -35,10 +36,7 @@ pool.getConnection((err, connection) => {
     console.log('Connected as ID' + connection.threadId);
 })
 
-//Router
-app.get('', (req, res) =>{
-    res.render('home')
-})
-
+//routes
+app.use('/', routes)
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
