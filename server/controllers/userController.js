@@ -220,3 +220,25 @@ exports.deleteUser = (req, res) => {
     );
   });
 };
+
+//view User by id
+exports.viewUser = (req, res) => {
+  //connect to DB
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    console.log("Connected as ID" + connection.threadId);
+
+    connection.query("SELECT * FROM user WHERE id = ?",[req.params.id], (err, rows) => {
+      //when done release connection
+      connection.release();
+
+      if (!err) {
+        res.render("view-user", { rows });
+      } else {
+        console.log(err);
+      }
+
+      console.log("The data from user table: \n", rows);
+    });
+  });
+};
