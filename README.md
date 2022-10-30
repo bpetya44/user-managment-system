@@ -20,3 +20,6 @@ create .env file in the root directory with:
     DB_NAME = your_db_name
     DB_USER = your_user_name
     DB_PASS = your_pass
+
+    
+![](public/assets/user-managment.gif)
