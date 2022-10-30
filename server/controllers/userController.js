@@ -24,7 +24,9 @@ exports.view = (req, res) => {
       connection.release();
 
       if (!err) {
-        res.render("home", { rows });
+        //when we pass http://localhost:3000/?removedUser%20successfully%20deleted from userRemovedMsg see deleteUser controller below
+        let removedUser = req.query.removed
+        res.render("home", { rows, removedUser });
       } else {
         console.log(err);
       }
@@ -211,7 +213,9 @@ exports.deleteUser = (req, res) => {
       (err, rows) => {
         connection.release(); //return the connection to pool
         if (!err) {
-          res.redirect("/");
+          //pass message for succes 
+          let userRemovedMsg = encodeURIComponent('User successfully deleted')
+          res.redirect("/?removed=" + userRemovedMsg);
         } else {
           console.log(err);
         }
