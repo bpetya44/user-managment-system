@@ -15,6 +15,6 @@ router.get('/edit-user/:id', userController.editUser)
 //update user by id
 router.post('/edit-user/:id', userController.updateUser)
 //delete user by id
-router.post('/:id', userController.deleteUser)
+router.get('/:id', userController.deleteUser)
 
 module.exports = router

@@ -18,6 +18,7 @@ exports.view = (req, res) => {
     if (err) throw err;
     console.log("Connected as ID" + connection.threadId);
 
+     //can add AND status = "active" so only active users are displayed
     connection.query("SELECT * FROM user", (err, rows) => {
       //when done release connection
       connection.release();
@@ -152,22 +153,70 @@ exports.updateUser = (req, res) => {
                 //when done release connection
                 connection.release();
                 if (!err) {
-                  res.render("edit-user", { rows, alert: `User ${first_name} has been updated` });
+                  res.render("edit-user", {
+                    rows,
+                    alert: `User ${first_name} has been updated`,
+                  });
                 } else {
                   console.log(err);
-                  res.render("edit-user", { message: "User Submission failed!" });
+                  res.render("edit-user", {
+                    message: "User Submission failed!",
+                  });
                 }
                 console.log("The data from user table: \n", rows);
               }
-            )
-          })
-
+            );
+          });
         } else {
           console.log(err);
         }
 
         console.log("The data from user table: \n", rows);
       }
-    )
-  })
+    );
+  });
+};
+
+//Delete user by /:id you can delete the user or just change status to removed
+exports.deleteUser = (req, res) => {
+  // //Delete user from the DB
+  // pool.getConnection((err, connection) => {
+  //   if (err) throw err;
+  //   console.log("Connected as ID" + connection.threadId);
+
+  //   connection.query(
+  //     "DELETE FROM user WHERE id= ?",
+  //     [req.params.id],
+  //     (err, rows) => {
+  //       //when done release connection
+  //       connection.release();
+
+  //       if (!err) {
+  //         res.redirect('/')
+  //       } else {
+  //         console.log(err);
+  //       }
+
+  //       console.log("The data from user table: \n", rows);
+  //     }
+  //   )
+  // })
+
+  //Change status to removed
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    connection.query(
+      "UPDATE user SET status = ? WHERE id = ?",
+      ["removed", req.params.id],
+      (err, rows) => {
+        connection.release(); //return the connection to pool
+        if (!err) {
+          res.redirect("/");
+        } else {
+          console.log(err);
+        }
+        console.log("The data from the user table are: \n", rows);
+      }
+    );
+  });
 };
