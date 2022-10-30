@@ -8,6 +8,13 @@ router.get('/', userController.view)
 router.post('/', userController.find)
 //add new user 
 router.post('/add-user', userController.addUser)
+//get the new user
 router.get('/add-user', userController.form)
+//edit user by id
+router.get('/edit-user/:id', userController.editUser)
+//update user by id
+router.post('/edit-user/:id', userController.updateUser)
+//delete user by id
+router.post('/:id', userController.deleteUser)
 
 module.exports = router
